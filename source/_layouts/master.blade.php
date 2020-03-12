@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ $page->language ?? 'en' }}">
+<html lang="{{ $page->language ?? 'en' }}" class="h-full">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,8 +11,11 @@
         <link rel="stylesheet" href="{{ mix('css/main.css', 'assets/build') }}">
         <script src="https://kit.fontawesome.com/ebb9d45ff3.js" crossorigin="anonymous"></script>
     </head>
-    <body>
-        <div id="app" class="container mx-auto">
+    <body class="h-full">
+        <div
+            id="app"
+            class="container mx-auto"
+        >
             @include('_partials.header')
             <main class="p-5">
                 @yield('content')

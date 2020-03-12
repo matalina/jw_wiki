@@ -125,18 +125,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Search',
   data: function data() {
     return {
       string: '',
-      results: []
+      results: [],
+      active: null,
+      typing: false
     };
   },
   methods: {
     clearSearch: function clearSearch() {
       this.string = '';
       this.results = [];
+      this.active = null;
     },
     hasResults: function hasResults() {
       return this.results.length > 0;
@@ -150,12 +167,83 @@ __webpack_require__.r(__webpack_exports__);
         title: 'Google 2',
         blurb: 'redirect to google to test',
         link: 'http://google.com'
+      }, {
+        title: 'Google',
+        blurb: 'redirect to google to test',
+        link: 'http://google.com'
+      }, {
+        title: 'Google 2',
+        blurb: 'redirect to google to test',
+        link: 'http://google.com'
+      }, {
+        title: 'Google',
+        blurb: 'redirect to google to test',
+        link: 'http://google.com'
+      }, {
+        title: 'Google 2',
+        blurb: 'redirect to google to test',
+        link: 'http://google.com'
+      }, {
+        title: 'Google',
+        blurb: 'redirect to google to test',
+        link: 'http://google.com'
+      }, {
+        title: 'Google 2',
+        blurb: 'redirect to google to test',
+        link: 'http://google.com'
+      }, {
+        title: 'Google',
+        blurb: 'redirect to google to test',
+        link: 'http://google.com'
+      }, {
+        title: 'Google 2',
+        blurb: 'redirect to google to test',
+        link: 'http://google.com'
+      }, {
+        title: 'Google',
+        blurb: 'redirect to google to test',
+        link: 'http://google.com'
+      }, {
+        title: 'Google 2',
+        blurb: 'redirect to google to test',
+        link: 'http://google.com'
+      }, {
+        title: 'Google',
+        blurb: 'redirect to google to test',
+        link: 'http://google.com'
+      }, {
+        title: 'Google 2',
+        blurb: 'redirect to google to test',
+        link: 'http://google.com'
+      }, {
+        title: 'Google',
+        blurb: 'redirect to google to test',
+        link: 'http://google.com'
+      }, {
+        title: 'Google 2',
+        blurb: 'redirect to google to test',
+        link: 'http://google.com'
       }];
     },
     open: function open(link) {
       this.results = [];
       window.location = link;
+    },
+    change: function change(key) {
+      this.active = key;
+    },
+    isActive: function isActive(key) {
+      return key === this.active;
     }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    EventBus.listen('clear-search', function () {
+      if (_this.active === null) {
+        _this.clearSearch();
+      }
+    });
   }
 });
 
@@ -654,7 +742,8 @@ var render = function() {
           expression: "string"
         }
       ],
-      staticClass: "border rounded-full py-2 pl-8 pr-5 lg:mt-6 mt-3 w-full",
+      staticClass:
+        "border rounded-full py-2 pl-8 pr-5 lg:mt-6 mt-3 w-full focus:outline-none",
       attrs: { type: "search", placeholder: "Search..." },
       domProps: { value: _vm.string },
       on: {
@@ -685,20 +774,56 @@ var render = function() {
     _vm._v(" "),
     _vm.hasResults()
       ? _c(
-          "ul",
+          "div",
           {
             staticClass:
-              "absolute bg-white border border-grey-500 w-full text-left",
-            staticStyle: { left: "0", top: "100%", "z-index": "9999" }
+              "absolute text-white bg-red-500 rounded-full py-2 px-3 cursor-pointer max-h-screen",
+            staticStyle: {
+              bottom: "-25px",
+              right: "-15px",
+              "z-index": "99999"
+            },
+            on: {
+              click: function($event) {
+                return _vm.clearSearch()
+              }
+            }
           },
-          _vm._l(_vm.results, function(result) {
+          [_c("i", { staticClass: "far fa-times fa-fw" })]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.hasResults()
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "absolute bg-white border border-grey-500 w-full text-left overflow-y-scroll overflow-x-hidden",
+            staticStyle: {
+              left: "0",
+              top: "100%",
+              "z-index": "9999",
+              height: "400px"
+            }
+          },
+          _vm._l(_vm.results, function(result, key) {
             return _c(
-              "li",
+              "div",
               {
-                staticClass: "border-b p-3",
+                staticClass: "border-b p-3 cursor-pointer",
+                class: {
+                  "bg-gray-100": _vm.isActive(key),
+                  "bg-white": !_vm.isActive(key)
+                },
                 on: {
                   click: function($event) {
                     return _vm.open(result.link)
+                  },
+                  mouseover: function($event) {
+                    return _vm.change(key)
+                  },
+                  mouseout: function($event) {
+                    return _vm.change(null)
                   }
                 }
               },
@@ -12933,6 +13058,59 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./source/_assets/js/event.js":
+/*!************************************!*\
+  !*** ./source/_assets/js/event.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+/*
+    # EventBus listing
+
+ */
+
+/* harmony default export */ __webpack_exports__["default"] = (new ( /*#__PURE__*/function () {
+  function _class() {
+    _classCallCheck(this, _class);
+
+    this.vue = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
+  }
+
+  _createClass(_class, [{
+    key: "fire",
+    value: function fire(event) {
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      this.vue.$emit(event, data);
+    }
+  }, {
+    key: "listen",
+    value: function listen(event, callback) {
+      this.vue.$on(event, callback);
+    }
+  }, {
+    key: "forget",
+    value: function forget(event, callback) {
+      this.vue.$off(event, callback);
+    }
+  }]);
+
+  return _class;
+}())());
+
+/***/ }),
+
 /***/ "./source/_assets/js/main.js":
 /*!***********************************!*\
   !*** ./source/_assets/js/main.js ***!
@@ -12944,15 +13122,19 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_Search__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Search */ "./source/_assets/js/components/Search.vue");
+/* harmony import */ var _event__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./event */ "./source/_assets/js/event.js");
+/* harmony import */ var _components_Search__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Search */ "./source/_assets/js/components/Search.vue");
 
 
+
+window.EventBus = _event__WEBPACK_IMPORTED_MODULE_1__["default"];
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   components: {
-    Search: _components_Search__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Search: _components_Search__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  data: {}
+  data: {},
+  methods: {}
 });
 
 /***/ }),

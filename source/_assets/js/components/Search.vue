@@ -158,11 +158,7 @@
             }
         },
         mounted() {
-            EventBus.listen('clear-search', () => {
-                if(this.active === null) {
-                    this.clearSearch();
-                }
-            });
+
         }
     }
 </script>

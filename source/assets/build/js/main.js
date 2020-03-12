@@ -236,15 +236,7 @@ __webpack_require__.r(__webpack_exports__);
       return key === this.active;
     }
   },
-  mounted: function mounted() {
-    var _this = this;
-
-    EventBus.listen('clear-search', function () {
-      if (_this.active === null) {
-        _this.clearSearch();
-      }
-    });
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
